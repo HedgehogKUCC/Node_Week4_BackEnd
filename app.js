@@ -8,6 +8,7 @@ const signupRouter = require('./routes/signup');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+const postsRouter = require('./routes/posts');
 
 var app = express();
 require('./connections/mongoDB');
@@ -22,5 +23,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/signup', signupRouter);
+app.use('/posts', postsRouter);
 
 module.exports = app;
