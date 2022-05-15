@@ -2,16 +2,18 @@ const mongoose = require('mongoose');
 
 const postSchema = new mongoose.Schema(
     {
-        user: {
+        userID: {
             type: mongoose.Schema.ObjectId,
-            ref: 'user',
+            ref: 'User',
         },
         content: {
             type: String,
             required: [true, '【貼文內容】必填'],
+            trim: true,
         },
         image: {
             type: String,
+            trim: true,
         },
         createdAt: {
             type: Date,
@@ -23,6 +25,6 @@ const postSchema = new mongoose.Schema(
     }
 );
 
-const PostModel = mongoose.model('post', postSchema);
+const PostModel = mongoose.model('Post', postSchema);
 
 module.exports = PostModel;
