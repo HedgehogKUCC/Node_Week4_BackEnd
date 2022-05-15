@@ -4,9 +4,10 @@ const UserModel = require('../models/User');
 const { success, error } = require('../service/responseHandle');
 
 module.exports = {
-    async getUsers(req, res) {
+    async getUser(req, res) {
         try {
-            const data = await UserModel.find();
+            const { id } = req.params;
+            const data = await UserModel.findById(id, 'name avatar');
             success(res, data);
         } catch(err) {
             error(res, err.message);
