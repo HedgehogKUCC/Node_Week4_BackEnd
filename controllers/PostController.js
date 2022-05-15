@@ -2,6 +2,20 @@ const PostModel = require('../models/Post');
 const { success, error } = require('../service/responseHandle');
 
 module.exports = {
+    async getPosts(req, res) {
+        try {
+            const { s, q } = req.query;
+            const timeSort = s === 'asc' ? 'createdAt' : '-createdAt';
+            const userQuery = q !== undefined ? { "content": new RegExp(req.query.q) } : {};
+            const result = await PostModel.find(userQuery).populate({
+                path: 'userID',
+                select: 'name avatar',
+            }).sort(timeSort);
+            success(res, result);
+        } catch(err) {
+            error(res, err.message);
+        }
+    },
     async insertPost(req, res) {
         try {
             const data = req.body;
